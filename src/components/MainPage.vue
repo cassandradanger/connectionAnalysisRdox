@@ -8,7 +8,7 @@
       </ul>
     </div>
     <new-connection-modal :show="show" @close="newConnection"></new-connection-modal>
-    <edit-connection-modal :show="edit" :item="item" @close="newConnection"></edit-connection-modal>
+    <edit-connection-modal :show="editShow" :item="item" @close="closeEdit"></edit-connection-modal>
   </div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       show: false,
-      edit: false,
+      editShow: false,
       item: {},
     }
   },
@@ -34,8 +34,11 @@ export default {
       this.show = !this.show;
     },
     edit(item){
-      this.edit = !this.edit;
+      this.editShow = !this.editShow;
       this.item = item;
+    },
+    closeEdit(){
+      this.editShow = !this.editShow;
     }
   },
 }
