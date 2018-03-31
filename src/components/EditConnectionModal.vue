@@ -7,7 +7,7 @@
                     <input 
                         type ="text" 
                         id="name"
-                        v-model="connection.connectionName"
+                        v-model="editConnection.connectionName"
                         :placeholder="item.connectionName"
                     />
                 </p>
@@ -17,7 +17,7 @@
                         type ="radio" 
                         id="https"
                         value="https"
-                        v-model="connection.communicationMethod"
+                        v-model="editConnection.communicationMethod"
                         :placeholder="item.communicationMethod"
                     />
                     <label for="tcp">TCP</label>
@@ -25,7 +25,7 @@
                         type ="radio" 
                         id="tcp"
                         value="tcp"
-                        v-model="connection.communicationMethod"
+                        v-model="editConnection.communicationMethod"
                         :placeholder="item.communicationMethod"
                     />
                 </p>
@@ -34,7 +34,7 @@
                         <input 
                             type ="text" 
                             id="httpsURL"
-                            v-model="connection.httpsURL"
+                            v-model="editConnection.httpsURL"
                             :placeholder="item.httpsURL"
                         />
                     </p>
@@ -44,7 +44,7 @@
                             type ="radio" 
                             id="put"
                             value="put"
-                            v-model="connection.httpsRequest"
+                            v-model="editConnection.httpsRequest"
                             :placeholder="item.httpsRequest"
                         />
                         <label for="tcp">POST</label>
@@ -52,7 +52,7 @@
                             type ="radio" 
                             id="post"
                             value="post"
-                            v-model="connection.httpsRequest"
+                            v-model="editConnection.httpsRequest"
                             :placeholder="item.httpsRequest"
                         />
                     </p>
@@ -63,7 +63,7 @@
                         <input 
                             type ="text" 
                             id="tcpIP"
-                            v-model="connection.tcpIP"
+                            v-model="editConnection.tcpIP"
                             :placeholder="item.tcpIP"
                         />
                     </p>
@@ -71,7 +71,7 @@
                         <input 
                             type ="number" 
                             id="tcpPort"
-                            v-model="connection.tcpPort"
+                            v-model="editConnection.tcpPort"
                             :placeholder="item.tcpPort"
                         />
                     </p>
@@ -92,24 +92,45 @@
         props: ['show', 'item'],
         data() {
             return {
-                connection: {
+                editConnection: {
                     connectionName: '',
                     communicationMethod: '',
                     httpsURL: '',
                     httpsRequest: '',
+                    tcpIP: '',
+                    tcpPort: '',
                     id: 0,
                 }
             }
         },
         methods: {
+            refreshEditConnection(){
+                this.editConnection = {
+                    connectionName: '',
+                    communicationMethod: '',
+                    httpsURL: '',
+                    httpsRequest: '',
+                    tcpIP: '',
+                    tcpPort: '',
+                    id: 0,
+                }
+            },
+            assignEditConnection(){
+                this.editConnection.connectionName = this.editConnection.connectionName || this.item.connectionName;
+                this.editConnection.communicationMethod = this.editConnection.communicationMethod || this.item.communicationMethod;
+                this.editConnection.httpsURL = this.editConnection.httpsURL || this.item.httpsURL;
+                this.editConnection.httpsRequest = this.editConnection.httpsRequest || this.item.httpsRequest;
+                this.editConnection.tcpIP = this.editConnection.tcpIP || this.item.tcpIP;
+                this.editConnection.tcpPort = this.editConnection.tcpPort || this.item.tcpPort;
+                this.editConnection.id = this.item.id;
+            },
             close() {
                 this.$emit('close');
             },
             submit(){
-                /* eslint-disable */
-                console.log('this is more', this.connection);
-                this.connection.id = Math.floor((Math.random() * 100) + 1);
-                this.$store.commit('addConnection', this.connection);
+                this.assignEditConnection();
+                this.$store.commit('editConnection', this.editConnection);
+                this.refreshEditConnection();
                 this.$emit('close');
             },
         },

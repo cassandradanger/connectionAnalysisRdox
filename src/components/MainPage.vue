@@ -2,7 +2,7 @@
   <div class="mainPage">
     <button class="link" @click="newConnection">+ New Connection</button>
     <div class="list">
-      <ul v-for="item in $store.state.connections" v-bind="Math.random()">
+      <ul v-for="item in connectionsArray" v-bind:key="item.id">
         <li>{{item}}</li>
         <button class="edit" @click="edit(item)">Edit</button>
       </ul>
@@ -29,6 +29,11 @@ export default {
       item: {},
     }
   },
+  computed: {
+    connectionsArray(){
+        return this.$store.state.connections;
+    },
+  },
   methods: {
     newConnection(){
       this.show = !this.show;
@@ -39,6 +44,7 @@ export default {
     },
     closeEdit(){
       this.editShow = !this.editShow;
+      console.log(this.$store.state.connections);
     }
   },
 }

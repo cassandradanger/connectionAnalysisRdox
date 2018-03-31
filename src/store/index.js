@@ -13,5 +13,19 @@ export default new Vuex.Store({
         addConnection(state, payload) {
             state.connections.push(payload);
         },
+        editConnection(state, payload) {
+            state.connections.map((item) => {
+                if(item.id === payload.id){
+                    item.connectionName = payload.connectionName;
+                    item.communicationMethod = payload.communicationMethod;
+                    item.httpsURL = payload.httpsURL;
+                    item.httpsRequest = payload.httpsRequest;
+                    item.tcpIP = payload.tcpIP;
+                    item.tcpPort = payload.tcpPort;
+                    item.id = payload.id;
+                    return state.connections;
+                }
+            });
+        },
     },
 });

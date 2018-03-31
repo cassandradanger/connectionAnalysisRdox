@@ -89,20 +89,32 @@
                     communicationMethod: '',
                     httpsURL: '',
                     httpsRequest: '',
+                    tcpIP: '',
+                    tcpPort: '',
                     id: 0,
                 }
             }
         },
         methods: {
+            refreshConnection(){
+                this.connection = {
+                    connectionName: '',
+                    communicationMethod: '',
+                    httpsURL: '',
+                    httpsRequest: '',
+                    tcpIP: '',
+                    tcpPort: '',
+                    id: 0,
+                }
+            },
             close() {
                 this.$emit('close');
             },
             submit(){
-                /* eslint-disable */
-                console.log('this is more', this.connection);
                 this.connection.id = Math.floor((Math.random() * 100) + 1);
                 this.$store.commit('addConnection', this.connection);
                 this.$emit('close');
+                this.refreshConnection();
             },
         },
     };
