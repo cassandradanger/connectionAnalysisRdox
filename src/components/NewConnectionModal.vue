@@ -26,6 +26,49 @@
                         v-model="connection.communicationMethod"
                     />
                 </p>
+                <div v-if="connection.communicationMethod === 'https'">
+                    <p>URL
+                        <input 
+                            type ="text" 
+                            id="httpsURL"
+                            v-model="connection.httpsURL"
+                        />
+                    </p>
+                    <p>Request Method
+                        <label for="https">PUT</label>
+                        <input 
+                            type ="radio" 
+                            id="put"
+                            value="put"
+                            v-model="connection.httpsRequest"
+                        />
+                        <label for="tcp">POST</label>
+                        <input 
+                            type ="radio" 
+                            id="post"
+                            value="post"
+                            v-model="connection.httpsRequest"
+                        />
+                    </p>
+                </div>
+
+                <div v-if="connection.communicationMethod === 'tcp'">
+                    <p>IP Address
+                        <input 
+                            type ="text" 
+                            id="tcpIP"
+                            v-model="connection.tcpIP"
+                        />
+                    </p>
+                    <p>Port Number
+                        <input 
+                            type ="number" 
+                            id="tcpPort"
+                            v-model="connection.tcpPort"
+                        />
+                    </p>
+                </div>
+
 
                 <button @click.prevent="submit">Submit</button>
             </form>
@@ -44,6 +87,8 @@
                 connection: {
                     connectionName: '',
                     communicationMethod: '',
+                    httpsURL: '',
+                    httpsRequest: '',
                 }
             }
         },
