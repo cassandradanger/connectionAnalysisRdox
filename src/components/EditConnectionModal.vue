@@ -8,6 +8,7 @@
                         type ="text" 
                         id="name"
                         v-model="connection.connectionName"
+                        :placeholder="item.connectionName"
                     />
                 </p>
                 <p>Communication Method
@@ -17,6 +18,7 @@
                         id="https"
                         value="https"
                         v-model="connection.communicationMethod"
+                        :placeholder="item.communicationMethod"
                     />
                     <label for="tcp">TCP</label>
                     <input 
@@ -24,14 +26,16 @@
                         id="tcp"
                         value="tcp"
                         v-model="connection.communicationMethod"
+                        :placeholder="item.communicationMethod"
                     />
                 </p>
-                <div v-if="connection.communicationMethod === 'https'">
+                <div v-if="item.communicationMethod === 'https'">
                     <p>URL
                         <input 
                             type ="text" 
                             id="httpsURL"
                             v-model="connection.httpsURL"
+                            :placeholder="item.httpsURL"
                         />
                     </p>
                     <p>Request Method
@@ -41,6 +45,7 @@
                             id="put"
                             value="put"
                             v-model="connection.httpsRequest"
+                            :placeholder="item.httpsRequest"
                         />
                         <label for="tcp">POST</label>
                         <input 
@@ -48,16 +53,18 @@
                             id="post"
                             value="post"
                             v-model="connection.httpsRequest"
+                            :placeholder="item.httpsRequest"
                         />
                     </p>
                 </div>
 
-                <div v-if="connection.communicationMethod === 'tcp'">
+                <div v-if="item.communicationMethod === 'tcp'">
                     <p>IP Address
                         <input 
                             type ="text" 
                             id="tcpIP"
                             v-model="connection.tcpIP"
+                            :placeholder="item.tcpIP"
                         />
                     </p>
                     <p>Port Number
@@ -65,12 +72,13 @@
                             type ="number" 
                             id="tcpPort"
                             v-model="connection.tcpPort"
+                            :placeholder="item.tcpPort"
                         />
                     </p>
                 </div>
 
 
-                <button @click.prevent="submit">Submit</button>
+                <button @click.prevent="submit(item.id)">Submit</button>
             </form>
         </div>
         </div>
@@ -81,7 +89,7 @@
 
     export default {
         name: 'modal-comp',
-        props: ['show'],
+        props: ['show', 'item'],
         data() {
             return {
                 connection: {
