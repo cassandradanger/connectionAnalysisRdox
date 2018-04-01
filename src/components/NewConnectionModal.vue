@@ -3,66 +3,66 @@
         <div class="modalDefault">
             <button class="close" @click="close">X</button>
             <form>
-                <p>Name
-                    <input 
-                        type ="text" 
-                        id="name"
+                <p>Connection Name: 
+                    <input
+                        class="textInput"
+                        type ="text"
                         v-model="connection.connectionName"
                     />
                 </p>
-                <p>Communication Method
+                <p>Communication Method: 
                     <label for="https">HTTPS</label>
                     <input 
                         type ="radio" 
                         id="https"
-                        value="https"
+                        value="HTTPS"
                         v-model="connection.communicationMethod"
                     />
                     <label for="tcp">TCP</label>
                     <input 
                         type ="radio" 
                         id="tcp"
-                        value="tcp"
+                        value="TCP"
                         v-model="connection.communicationMethod"
                     />
                 </p>
-                <div v-if="connection.communicationMethod === 'https'">
-                    <p>URL
-                        <input 
-                            type ="text" 
-                            id="httpsURL"
+                <div v-if="connection.communicationMethod === 'HTTPS'">
+                    <p>URL: 
+                        <input
+                            class="textInput"
+                            type ="text"
                             v-model="connection.httpsURL"
                         />
                     </p>
-                    <p>Request Method
-                        <label for="https">PUT</label>
+                    <p>Request Method: 
+                        <label for="put">PUT</label>
                         <input 
-                            type ="radio" 
+                            type="radio" 
                             id="put"
-                            value="put"
+                            value="PUT"
                             v-model="connection.httpsRequest"
                         />
-                        <label for="tcp">POST</label>
+                        <label for="post">POST</label>
                         <input 
-                            type ="radio" 
+                            type="radio" 
                             id="post"
-                            value="post"
+                            value="POST"
                             v-model="connection.httpsRequest"
                         />
                     </p>
                 </div>
-                <div v-if="connection.communicationMethod === 'tcp'">
-                    <p>IP Address
-                        <input 
-                            type ="text" 
-                            id="tcpIP"
+                <div v-if="connection.communicationMethod === 'TCP'">
+                    <p>IP Address: 
+                        <input
+                            class="textInput"
+                            type ="text"
                             v-model="connection.tcpIP"
                         />
                     </p>
-                    <p>Port Number
-                        <input 
-                            type ="number" 
-                            id="tcpPort"
+                    <p>Port Number: 
+                        <input
+                            class="textInput"
+                            type ="number"
                             v-model="connection.tcpPort"
                         />
                     </p>
@@ -119,6 +119,14 @@
 
 <style scoped>
 
+    .textInput{
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #20cb9a;
+        width: 80%;
+        display: block;
+    }
+
     .curtain {
         background: rgba(0,0,0, 0.7);
         bottom: 0;
@@ -127,12 +135,6 @@
         right: 0;
         top: 0;
         z-index: 0;
-    }
-
-    h2 {
-        text-align: center;
-        font-weight: normal;
-        font-family: 'Circular Std Book';
     }
 
     .close {
@@ -154,8 +156,10 @@
         position: absolute;
         top: 50%;
         transform: translate(-50%, -50%);
-        width: 50%;
+        width: 40%;
+        height: 20px;
         background-color: whitesmoke;
+        padding: 20px;
     }
 
 </style>

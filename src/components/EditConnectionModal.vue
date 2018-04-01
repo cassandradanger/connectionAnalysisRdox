@@ -3,20 +3,20 @@
         <div class="modalDefault">
             <button class="close" @click="close">X</button>
             <form>
-                <p>Name
-                    <input 
-                        type ="text" 
-                        id="name"
+                <p>Name: 
+                    <input
+                        class="textInput"
+                        type ="text"
                         v-model="editConnection.connectionName"
                         :placeholder="item.connectionName"
                     />
                 </p>
-                <p>Communication Method
+                <p>Communication Method:
                     <label for="https">HTTPS</label>
                     <input 
                         type ="radio" 
                         id="https"
-                        value="https"
+                        value="HTTPS"
                         v-model="editConnection.communicationMethod"
                         :placeholder="item.communicationMethod"
                     />
@@ -24,61 +24,59 @@
                     <input 
                         type ="radio" 
                         id="tcp"
-                        value="tcp"
+                        value="TCP"
                         v-model="editConnection.communicationMethod"
                         :placeholder="item.communicationMethod"
                     />
                 </p>
-                <div v-if="item.communicationMethod === 'https'">
-                    <p>URL
-                        <input 
-                            type ="text" 
-                            id="httpsURL"
+                <div v-if="editConnection.communicationMethod === 'HTTPS'">
+                    <p>URL: 
+                        <input
+                            class="textInput"
+                            type ="text"
                             v-model="editConnection.httpsURL"
                             :placeholder="item.httpsURL"
                         />
                     </p>
-                    <p>Request Method
-                        <label for="https">PUT</label>
-                        <input 
-                            type ="radio" 
+                    <p>Request Method: 
+                        <label for="put">PUT</label>
+                        <input
+                            type ="radio"
                             id="put"
-                            value="put"
+                            value="PUT"
                             v-model="editConnection.httpsRequest"
                             :placeholder="item.httpsRequest"
                         />
-                        <label for="tcp">POST</label>
-                        <input 
-                            type ="radio" 
+                        <label for="post">POST</label>
+                        <input
+                            type ="radio"
                             id="post"
-                            value="post"
+                            value="POST"
                             v-model="editConnection.httpsRequest"
                             :placeholder="item.httpsRequest"
                         />
                     </p>
                 </div>
 
-                <div v-if="item.communicationMethod === 'tcp'">
-                    <p>IP Address
-                        <input 
-                            type ="text" 
-                            id="tcpIP"
+                <div v-if="editConnection.communicationMethod === 'TCP'">
+                    <p>IP Address: 
+                        <input
+                            class="textInput"
+                            type ="text"
                             v-model="editConnection.tcpIP"
                             :placeholder="item.tcpIP"
                         />
                     </p>
-                    <p>Port Number
-                        <input 
-                            type ="number" 
-                            id="tcpPort"
+                    <p>Port Number: 
+                        <input
+                            class="textInput"
+                            type ="number"
                             v-model="editConnection.tcpPort"
                             :placeholder="item.tcpPort"
                         />
                     </p>
                 </div>
-
-
-                <button @click.prevent="submit(item.id)">Submit</button>
+                <button class="submit" @click.prevent="submit(item.id)">Submit</button>
             </form>
         </div>
         </div>
@@ -138,6 +136,18 @@
 </script>
 
 <style scoped>
+    p{
+        font-weight: 500;
+        color: #1b2b3a;
+    }
+
+    .textInput{
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #20cb9a;
+        width: 100%;
+        display: block;
+    }
 
     .curtain {
         background: rgba(0,0,0, 0.7);
@@ -147,12 +157,6 @@
         right: 0;
         top: 0;
         z-index: 0;
-    }
-
-    h2 {
-        text-align: center;
-        font-weight: normal;
-        font-family: 'Circular Std Book';
     }
 
     .close {
@@ -174,8 +178,20 @@
         position: absolute;
         top: 50%;
         transform: translate(-50%, -50%);
-        width: 50%;
+        width: 40%;
         background-color: whitesmoke;
+        padding: 20px 40px;
+    }
+
+    .submit{
+        padding: 3px 10px;
+        border-radius: 4px;
+        background-color: #20cb9a;
+        color: white;
+        cursor: pointer;
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
     }
 
 </style>
