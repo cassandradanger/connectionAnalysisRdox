@@ -51,7 +51,6 @@ export default {
     },
     closeEdit(){
       this.editShow = !this.editShow;
-      console.log(this.$store.state.connections);
     }
   },
 }
