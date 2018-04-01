@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import MainPage from '@/components/MainPage'
+import ConnectionList from '@/components/ConnectionList'
 
 Vue.use(Router)
 
@@ -8,8 +8,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'MainPage',
-      component: MainPage
+      name: 'ConnectionList',
+      component: ConnectionList
     }
   ]
 })

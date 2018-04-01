@@ -51,7 +51,6 @@
                         />
                     </p>
                 </div>
-
                 <div v-if="connection.communicationMethod === 'tcp'">
                     <p>IP Address
                         <input 
@@ -68,8 +67,6 @@
                         />
                     </p>
                 </div>
-
-
                 <button @click.prevent="submit">Submit</button>
             </form>
         </div>
@@ -111,7 +108,7 @@
                 this.$emit('close');
             },
             submit(){
-                this.connection.id = Math.floor((Math.random() * 100) + 1);
+                this.connection.id = Math.floor((Math.random() * 10000) + 1);
                 this.$store.commit('addConnection', this.connection);
                 this.$emit('close');
                 this.refreshConnection();
