@@ -194,4 +194,8 @@
         right: 15px;
     }
 
+    .submit:hover{
+        color: #1b2b3a;
+    }
+
 </style>

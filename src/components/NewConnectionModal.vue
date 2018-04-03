@@ -67,7 +67,7 @@
                         />
                     </p>
                 </div>
-                <button @click.prevent="submit">Submit</button>
+                <button class="submit" @click.prevent="submit">Submit</button>
             </form>
         </div>
         </div>
@@ -105,6 +105,7 @@
                 }
             },
             close() {
+                this.refreshConnection();
                 this.$emit('close');
             },
             submit(){
@@ -150,16 +151,30 @@
     .modalDefault {
         border-radius: 10px;
         left: 50%;
-        max-height: 100vh;
+        max-height: 80vh;
         min-height: 50vh;
         overflow: auto;
         position: absolute;
         top: 50%;
         transform: translate(-50%, -50%);
         width: 40%;
-        height: 20px;
         background-color: whitesmoke;
         padding: 20px;
+    }
+
+    .submit{
+        padding: 3px 10px;
+        border-radius: 4px;
+        background-color: #20cb9a;
+        color: white;
+        cursor: pointer;
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+    }
+
+    .submit:hover{
+        color: #1b2b3a;
     }
 
 </style>
