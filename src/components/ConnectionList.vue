@@ -6,6 +6,7 @@
         <li class="connectionItem" v-for="item in connectionsArray" v-bind:key="item.id">
           <p>Connection Name:<br/><span class="connectionLI">{{item.connectionName}}</span></p>
           <p>Communication Method:<br/><span class="connectionLI">{{item.communicationMethod}}</span></p> 
+          <p>Status:<br/><span class="connectionLI">{{item.status}}</span></p> 
           <p v-if="item.communicationMethod === 'HTTPS'">URL:<br/><span class="connectionLI">{{item.httpsURL}}</span></p> 
           <p v-if="item.communicationMethod === 'HTTPS'">Request Method:<br/><span class="connectionLI">{{item.httpsRequest}}</span></p> 
           <p v-if="item.communicationMethod === 'TCP'">IP Address:<br/><span class="connectionLI">{{item.tcpIP}}</span></p> 

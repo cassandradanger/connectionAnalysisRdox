@@ -22,6 +22,7 @@ export default new Vuex.Store({
                     item.httpsRequest = payload.httpsRequest;
                     item.tcpIP = payload.tcpIP;
                     item.tcpPort = payload.tcpPort;
+                    item.status = payload.status;
                     item.id = payload.id;
                     return state.connections;
                 }

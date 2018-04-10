@@ -26,6 +26,29 @@
                         v-model="connection.communicationMethod"
                     />
                 </p>
+                <p>Status: 
+                    <label for="put">Running</label>
+                    <input 
+                        type="radio" 
+                        id="running"
+                        value="RUNNING"
+                        v-model="connection.status"
+                    />
+                    <label for="post">Paused</label>
+                    <input 
+                        type="radio" 
+                        id="paused"
+                        value="PAUSED"
+                        v-model="connection.status"
+                    />
+                    <label for="post">Stopped</label>
+                    <input 
+                        type="radio" 
+                        id="stopped"
+                        value="STOPPED"
+                        v-model="connection.status"
+                    />
+                </p>
                 <div v-if="connection.communicationMethod === 'HTTPS'">
                     <p>URL: 
                         <input
@@ -89,6 +112,7 @@
                     tcpIP: '',
                     tcpPort: '',
                     id: 0,
+                    status: '',
                 }
             }
         },
@@ -102,6 +126,7 @@
                     tcpIP: '',
                     tcpPort: '',
                     id: 0,
+                    status: '',
                 }
             },
             close() {

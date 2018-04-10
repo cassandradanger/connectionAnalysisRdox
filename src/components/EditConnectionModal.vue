@@ -9,6 +9,7 @@
                         type ="text"
                         v-model="editConnection.connectionName"
                         :placeholder="item.connectionName"
+                        :disabled="editConnection.status === 'RUNNING' || editConnection.status === 'PAUSED'"
                     />
                 </p>
                 <p>Communication Method:
@@ -18,7 +19,8 @@
                         id="https"
                         value="HTTPS"
                         v-model="editConnection.communicationMethod"
-                        :placeholder="item.communicationMethod"
+                        :checked="item.communicationMethod === 'HTTPS'"
+                        :disabled="editConnection.status === 'RUNNING' || editConnection.status === 'PAUSED'"
                     />
                     <label for="tcp">TCP</label>
                     <input 
@@ -26,7 +28,34 @@
                         id="tcp"
                         value="TCP"
                         v-model="editConnection.communicationMethod"
-                        :placeholder="item.communicationMethod"
+                        :checked="item.communicationMethod === 'TCP'"
+                        :disabled="editConnection.status === 'RUNNING' || editConnection.status === 'PAUSED'"
+                    />
+                </p>
+                <p>Status: 
+                    <label for="put">Running</label>
+                    <input 
+                        type="radio" 
+                        id="running"
+                        value="RUNNING"
+                        v-model="editConnection.status"
+                        :placeholder="editConnection.status"
+                    />
+                    <label for="post">Paused</label>
+                    <input 
+                        type="radio" 
+                        id="paused"
+                        value="PAUSED"
+                        v-model="editConnection.status"
+                        :placeholder="editConnection.status"
+                    />
+                    <label for="post">Stopped</label>
+                    <input 
+                        type="radio" 
+                        id="stopped"
+                        value="STOPPED"
+                        v-model="editConnection.status"
+                        :placeholder="editConnection.status"
                     />
                 </p>
                 <div v-if="editConnection.communicationMethod === 'HTTPS'">
@@ -35,7 +64,8 @@
                             class="textInput"
                             type ="text"
                             v-model="editConnection.httpsURL"
-                            :placeholder="item.httpsURL"
+                            :placeholder="editConnection.httpsURL"
+                            :disabled="editConnection.status === 'RUNNING' || editConnection.status === 'PAUSED'"
                         />
                     </p>
                     <p>Request Method: 
@@ -45,7 +75,8 @@
                             id="put"
                             value="PUT"
                             v-model="editConnection.httpsRequest"
-                            :placeholder="item.httpsRequest"
+                            :placeholder="editConnection.httpsRequest"
+                            :disabled="editConnection.status === 'RUNNING' || editConnection.status === 'PAUSED'"
                         />
                         <label for="post">POST</label>
                         <input
@@ -53,7 +84,8 @@
                             id="post"
                             value="POST"
                             v-model="editConnection.httpsRequest"
-                            :placeholder="item.httpsRequest"
+                            :placeholder="editConnection.httpsRequest"
+                            :disabled="editConnection.status === 'RUNNING' || editConnection.status === 'PAUSED'"
                         />
                     </p>
                 </div>
@@ -64,7 +96,8 @@
                             class="textInput"
                             type ="text"
                             v-model="editConnection.tcpIP"
-                            :placeholder="item.tcpIP"
+                            :placeholder="editConnection.tcpIP"
+                            :disabled="editConnection.status === 'RUNNING' || editConnection.status === 'PAUSED'"
                         />
                     </p>
                     <p>Port Number: 
@@ -72,7 +105,8 @@
                             class="textInput"
                             type ="number"
                             v-model="editConnection.tcpPort"
-                            :placeholder="item.tcpPort"
+                            :placeholder="editConnection.tcpPort"
+                            :disabled="editConnection.status === 'RUNNING' || editConnection.status === 'PAUSED'"
                         />
                     </p>
                 </div>
@@ -97,9 +131,15 @@
                     httpsRequest: '',
                     tcpIP: '',
                     tcpPort: '',
-                    id: 0,
+                    id: '',
+                    status: '',
                 }
             }
+        },
+        created(){
+            /* eslint-disable */
+            console.log(this.item);
+            this.assignEditConnection();
         },
         methods: {
             refreshEditConnection(){
@@ -111,6 +151,7 @@
                     tcpIP: '',
                     tcpPort: '',
                     id: 0,
+                    status: '',
                 }
             },
             assignEditConnection(){
@@ -121,9 +162,11 @@
                 this.editConnection.tcpIP = this.editConnection.tcpIP || this.item.tcpIP;
                 this.editConnection.tcpPort = this.editConnection.tcpPort || this.item.tcpPort;
                 this.editConnection.id = this.item.id;
+                this.editConnection.status = this.editConnection.status || this.item.status;
             },
             close() {
                 this.$emit('close');
+                this.refreshEditConnection();
             },
             submit(){
                 this.assignEditConnection();
