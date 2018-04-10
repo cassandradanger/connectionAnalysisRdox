@@ -1,5 +1,5 @@
  <template>
-    <div v-if="show" class="curtain" tabindex="-1" ref="curtain" @click.self="close" @keyup.esc="close">
+    <div v-if="show" class="curtain" tamodelex="-1" ref="curtain" @click.self="close" @keyup.esc="close">
         <div class="modalDefault">
             <button class="close" @click="close">X</button>
             <form>
@@ -8,7 +8,7 @@
                         class="textInput"
                         type ="text"
                         v-model="editConnection.connectionName"
-                        :placeholder="item.connectionName"
+                        :placeholder="testingThing.connectionName"
                         :disabled="editConnection.status === 'RUNNING' || editConnection.status === 'PAUSED'"
                     />
                 </p>
@@ -19,8 +19,8 @@
                         id="https"
                         value="HTTPS"
                         v-model="editConnection.communicationMethod"
-                        :checked="item.communicationMethod === 'HTTPS'"
-                        :disabled="editConnection.status === 'RUNNING' || editConnection.status === 'PAUSED'"
+                        :checked="testingThing.communicationMethod === 'HTTPS'"
+                        :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
                     />
                     <label for="tcp">TCP</label>
                     <input 
@@ -28,8 +28,8 @@
                         id="tcp"
                         value="TCP"
                         v-model="editConnection.communicationMethod"
-                        :checked="item.communicationMethod === 'TCP'"
-                        :disabled="editConnection.status === 'RUNNING' || editConnection.status === 'PAUSED'"
+                        :checked="testingThing.communicationMethod === 'TCP'"
+                        :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
                     />
                 </p>
                 <p>Status: 
@@ -39,7 +39,7 @@
                         id="running"
                         value="RUNNING"
                         v-model="editConnection.status"
-                        :placeholder="editConnection.status"
+                        :placeholder="testingThing.status"
                     />
                     <label for="post">Paused</label>
                     <input 
@@ -47,7 +47,7 @@
                         id="paused"
                         value="PAUSED"
                         v-model="editConnection.status"
-                        :placeholder="editConnection.status"
+                        :placeholder="testingThing.status"
                     />
                     <label for="post">Stopped</label>
                     <input 
@@ -55,17 +55,17 @@
                         id="stopped"
                         value="STOPPED"
                         v-model="editConnection.status"
-                        :placeholder="editConnection.status"
+                        :placeholder="testingThing.status"
                     />
                 </p>
-                <div v-if="editConnection.communicationMethod === 'HTTPS'">
+                <div v-if="testingThing.communicationMethod === 'HTTPS'">
                     <p>URL: 
                         <input
                             class="textInput"
                             type ="text"
                             v-model="editConnection.httpsURL"
-                            :placeholder="editConnection.httpsURL"
-                            :disabled="editConnection.status === 'RUNNING' || editConnection.status === 'PAUSED'"
+                            :placeholder="testingThing.httpsURL"
+                            :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
                         />
                     </p>
                     <p>Request Method: 
@@ -75,8 +75,8 @@
                             id="put"
                             value="PUT"
                             v-model="editConnection.httpsRequest"
-                            :placeholder="editConnection.httpsRequest"
-                            :disabled="editConnection.status === 'RUNNING' || editConnection.status === 'PAUSED'"
+                            :placeholder="testingThing.httpsRequest"
+                            :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
                         />
                         <label for="post">POST</label>
                         <input
@@ -84,20 +84,20 @@
                             id="post"
                             value="POST"
                             v-model="editConnection.httpsRequest"
-                            :placeholder="editConnection.httpsRequest"
-                            :disabled="editConnection.status === 'RUNNING' || editConnection.status === 'PAUSED'"
+                            :placeholder="testingThing.httpsRequest"
+                            :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
                         />
                     </p>
                 </div>
 
-                <div v-if="editConnection.communicationMethod === 'TCP'">
+                <div v-if="testingThing.communicationMethod === 'TCP'">
                     <p>IP Address: 
                         <input
                             class="textInput"
                             type ="text"
                             v-model="editConnection.tcpIP"
-                            :placeholder="editConnection.tcpIP"
-                            :disabled="editConnection.status === 'RUNNING' || editConnection.status === 'PAUSED'"
+                            :placeholder="testingThing.tcpIP"
+                            :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
                         />
                     </p>
                     <p>Port Number: 
@@ -105,12 +105,12 @@
                             class="textInput"
                             type ="number"
                             v-model="editConnection.tcpPort"
-                            :placeholder="editConnection.tcpPort"
-                            :disabled="editConnection.status === 'RUNNING' || editConnection.status === 'PAUSED'"
+                            :placeholder="testingThing.tcpPort"
+                            :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
                         />
                     </p>
                 </div>
-                <button class="submit" @click.prevent="submit(item.id)">Submit</button>
+                <button class="submit" @click.prevent="submit(editConnection.id)">Submit</button>
             </form>
         </div>
         </div>
@@ -137,9 +137,11 @@
             }
         },
         created(){
-            /* eslint-disable */
-            console.log(this.item);
-            this.assignEditConnection();
+        },
+        computed: {
+            testingThing(){
+                return this.$store.state.connection;
+            }
         },
         methods: {
             refreshEditConnection(){

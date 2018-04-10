@@ -49,6 +49,7 @@ export default {
     edit(item){
       this.editShow = !this.editShow;
       this.item = item;
+      this.$store.commit('currentConnection', item);
     },
     closeEdit(){
       this.editShow = !this.editShow;

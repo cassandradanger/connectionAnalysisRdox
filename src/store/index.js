@@ -28,5 +28,9 @@ export default new Vuex.Store({
                 }
             });
         },
+        currentConnection(state, payload) {
+            console.log('hi', payload);
+            state.connection = payload;
+        }
     },
 });
