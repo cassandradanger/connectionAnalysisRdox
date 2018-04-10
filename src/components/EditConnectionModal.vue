@@ -7,30 +7,81 @@
                     <input
                         class="textInput"
                         type ="text"
-                        v-model="editConnection.connectionName"
+                        v-model="testingThing.connectionName"
                         :placeholder="testingThing.connectionName"
-                        :disabled="editConnection.status === 'RUNNING' || editConnection.status === 'PAUSED'"
+                        :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
                     />
                 </p>
                 <p>Communication Method:
-                    <label for="https">HTTPS</label>
-                    <input 
-                        type ="radio" 
-                        id="https"
-                        value="HTTPS"
-                        v-model="editConnection.communicationMethod"
-                        :checked="testingThing.communicationMethod === 'HTTPS'"
-                        :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
-                    />
-                    <label for="tcp">TCP</label>
-                    <input 
-                        type ="radio" 
-                        id="tcp"
-                        value="TCP"
-                        v-model="editConnection.communicationMethod"
-                        :checked="testingThing.communicationMethod === 'TCP'"
-                        :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
-                    />
+                    <div class="https">
+                        <label for="https">HTTPS</label>
+                        <input 
+                            type ="radio" 
+                            id="https"
+                            value="HTTPS"
+                            v-model="testingThing.communicationMethod"
+                            :placeholder="testingThing.communicationMethod"
+                            :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
+                        />
+                        <p>URL: 
+                            <input
+                                class="textInput"
+                                type ="text"
+                                v-model="testingThing.httpsURL"
+                                :placeholder="testingThing.httpsURL"
+                                :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
+                            />
+                        </p>
+                        <p>Request Method: 
+                            <label for="put">PUT</label>
+                            <input
+                                type ="radio"
+                                id="put"
+                                value="PUT"
+                                v-model="testingThing.httpsRequest"
+                                :placeholder="testingThing.httpsRequest"
+                                :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
+                            />
+                            <label for="post">POST</label>
+                            <input
+                                type ="radio"
+                                id="post"
+                                value="POST"
+                                v-model="testingThing.httpsRequest"
+                                :placeholder="testingThing.httpsRequest"
+                                :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
+                            />
+                        </p>
+                    </div>
+                    <div class="tcp">
+                        <label for="tcp">TCP</label>
+                        <input 
+                            type ="radio" 
+                            id="tcp"
+                            value="TCP"
+                            v-model="testingThing.communicationMethod"
+                            :placeholder="testingThing.communicationMethod"
+                            :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
+                        />
+                        <p>IP Address: 
+                            <input
+                                class="textInput"
+                                type ="text"
+                                v-model="testingThing.tcpIP"
+                                :placeholder="testingThing.tcpIP"
+                                :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
+                            />
+                        </p>
+                        <p>Port Number: 
+                            <input
+                                class="textInput"
+                                type ="number"
+                                v-model="testingThing.tcpPort"
+                                :placeholder="testingThing.tcpPort"
+                                :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
+                            />
+                        </p>
+                    </div>
                 </p>
                 <p>Status: 
                     <label for="put">Running</label>
@@ -38,78 +89,26 @@
                         type="radio" 
                         id="running"
                         value="RUNNING"
-                        v-model="editConnection.status"
-                        :placeholder="testingThing.status"
+                        v-model="testingThing.status"
+                        v-bind:checked="testingThing.status === 'RUNNING'"
                     />
                     <label for="post">Paused</label>
                     <input 
                         type="radio" 
                         id="paused"
                         value="PAUSED"
-                        v-model="editConnection.status"
-                        :placeholder="testingThing.status"
+                        v-model="testingThing.status"
+                        v-bind:checked="testingThing.status === 'PAUSED'"
                     />
                     <label for="post">Stopped</label>
                     <input 
                         type="radio" 
                         id="stopped"
                         value="STOPPED"
-                        v-model="editConnection.status"
-                        :placeholder="testingThing.status"
+                        v-model="testingThing.status"
+                        v-bind:checked="testingThing.status === 'STOPPED'"
                     />
                 </p>
-                <div v-if="testingThing.communicationMethod === 'HTTPS'">
-                    <p>URL: 
-                        <input
-                            class="textInput"
-                            type ="text"
-                            v-model="editConnection.httpsURL"
-                            :placeholder="testingThing.httpsURL"
-                            :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
-                        />
-                    </p>
-                    <p>Request Method: 
-                        <label for="put">PUT</label>
-                        <input
-                            type ="radio"
-                            id="put"
-                            value="PUT"
-                            v-model="editConnection.httpsRequest"
-                            :placeholder="testingThing.httpsRequest"
-                            :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
-                        />
-                        <label for="post">POST</label>
-                        <input
-                            type ="radio"
-                            id="post"
-                            value="POST"
-                            v-model="editConnection.httpsRequest"
-                            :placeholder="testingThing.httpsRequest"
-                            :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
-                        />
-                    </p>
-                </div>
-
-                <div v-if="testingThing.communicationMethod === 'TCP'">
-                    <p>IP Address: 
-                        <input
-                            class="textInput"
-                            type ="text"
-                            v-model="editConnection.tcpIP"
-                            :placeholder="testingThing.tcpIP"
-                            :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
-                        />
-                    </p>
-                    <p>Port Number: 
-                        <input
-                            class="textInput"
-                            type ="number"
-                            v-model="editConnection.tcpPort"
-                            :placeholder="testingThing.tcpPort"
-                            :disabled="testingThing.status === 'RUNNING' || testingThing.status === 'PAUSED'"
-                        />
-                    </p>
-                </div>
                 <button class="submit" @click.prevent="submit(editConnection.id)">Submit</button>
             </form>
         </div>
@@ -141,7 +140,7 @@
         computed: {
             testingThing(){
                 return this.$store.state.connection;
-            }
+            },
         },
         methods: {
             refreshEditConnection(){
@@ -243,4 +242,8 @@
         color: #1b2b3a;
     }
 
+    .tcp, .https{
+        border: 1px solid #1b2b3a;
+        margin-bottom: 10px;
+    }
 </style>

@@ -1,5 +1,7 @@
 <template>
   <div class="connectionList">
+    BLERG!!!! Still not working quite like how I want it to - that double binding is driving me crazy.
+    Double Binding + Conditionals = crazy casie
     <button class="link" @click="newConnection">+ New Connection</button>
     <div class="list">
       <ul>
